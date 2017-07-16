@@ -10,11 +10,17 @@
           <Col span="12">
           <Input v-model="configName" placeholder="请输入配置名"  />
           </Col>
-          <Col span="12" style="padding-left:10px">
+          <Col span="8" style="padding-left:10px">
 
               <Select v-model="selPro" filterable @on-change="getProTemp">
                 <Option v-for="item in proList" :value="item.value" :key="item">{{ item.label }}</Option>
              </Select>
+          </Col>
+          <Col span="4" style="padding-left:10px">
+            <Button type="primary" :loading="loading" icon="checkmark-round" @click="toApply">
+              <span v-if="!loading">保存</span>
+              <span v-else>Loading...</span>
+            </Button>
           </Col>
         </Row>
 
@@ -89,7 +95,7 @@
 </template>
 
 <script>
-  import api from '@/api/index'
+  import api from '@/api'
   export default {
     name: 'home',
     data () {
@@ -123,7 +129,8 @@
             label: '重庆市'
           }
         ],
-        selPro: 'chongqing'
+        selPro: 'chongqing',
+        loading: false
       }
     },
     methods: {
@@ -153,6 +160,25 @@
       },
       getActiveName () {
         return this.activeName
+      },
+      toApply () {
+        this.loading = true
+        // TODO: ajax保存配置
+
+        let param = {
+          selPro: this.selPro
+        }
+        api.commitProCfg(param).then((res) => {
+          this.$Message.success({
+            content: '成功',
+            top: 100,
+            duration: 3
+          })
+          this.loading = false
+          console.info(res.data)
+        }).catch((err) => {
+          console.warn(err)
+        })
       }
     },
     created () {
@@ -177,7 +203,7 @@
     left: 20px;
   }
   .layout-nav{
-    width: 420px;
+    width: 50%;
     margin: 0 auto;
   }
   .layout-assistant{
