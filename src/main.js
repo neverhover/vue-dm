@@ -13,6 +13,10 @@ import Locales from './locale'
 import zhLocale from 'iview/src/locale/lang/zh-CN'
 import enLocale from 'iview/src/locale/lang/en-US'
 
+import * as mock from './mock'
+
+console.log(mock.default.line)
+
 // Add components
 Vue.use(VueI18n)
 Vue.use(iView)

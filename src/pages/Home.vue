@@ -12,7 +12,7 @@
           </Col>
           <Col span="12" style="padding-left:10px">
 
-              <Select v-model="selPro" filterable>
+              <Select v-model="selPro" filterable @on-change="getProTemp">
                 <Option v-for="item in proList" :value="item.value" :key="item">{{ item.label }}</Option>
              </Select>
           </Col>
@@ -89,6 +89,7 @@
 </template>
 
 <script>
+  import api from '@/api/index'
   export default {
     name: 'home',
     data () {
@@ -128,6 +129,17 @@
     methods: {
       routeChange (e) {
         this.$router.push({ name: e })
+      },
+      getProTemp (v) {
+        console.log(v)
+        let param = {
+//          pname: v
+        }
+        api.getProTemp(param).then((res) => {
+          console.log(res)
+        }).catch((err) => {
+          console.warn(err)
+        })
       },
       activeChnage (e) {
         this.activeName = e
