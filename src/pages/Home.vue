@@ -46,44 +46,50 @@
       <Row>
         <i-col span="3">
           <Menu :active-name="activeName" width="auto" :open-names="[openName]" @on-select="routeChange" ref="sidebar" >
-            <Submenu name="system">
-              <template slot="title">
-                <Icon type="gear-b"></Icon>
-                系统设置
-              </template>
+
+            <Menu-group title="无线设置">
+
+              <Menu-item name="wireless_main">
+                <Icon type="wifi"></Icon>
+                无线设置
+              </Menu-item>
+            </Menu-group>
+            <Menu-group title="网络设置">
+
+              <Menu-item name="network_route">
+                <Icon type="merge"></Icon>
+                路由
+              </Menu-item>
+              <Menu-item name="network_interface">
+                <Icon type="network"></Icon>
+                接口
+              </Menu-item>
+              <Menu-item name="network_traffic">
+                <Icon type="levels"></Icon>
+                流控
+              </Menu-item>
+              <Menu-item name="network_switch">
+                <Icon type="shuffle"></Icon>
+                交换机
+              </Menu-item>
+            </Menu-group>
+            <Menu-group title="APP设置">
+              <Menu-item name="app_main">
+                <Icon type="android-apps"></Icon>
+                APP配置
+              </Menu-item>
+            </Menu-group>
+            <Menu-group title="系统设置">
 
               <Menu-item name="system_tunnel_syslog" >
+                <Icon type="ios-color-wand"></Icon>
                 隧道代理日志
               </Menu-item>
               <Menu-item name="system_sys_syslog">
+                <Icon type="ios-color-wand-outline"></Icon>
                 系统日志
               </Menu-item>
-            </Submenu>
-            <Submenu name="wireless">
-              <template slot="title">
-                <Icon type="wifi"></Icon>
-                无线设置
-              </template>
-              <Menu-item name="wireless_main">无线</Menu-item>
-            </Submenu>
-            <Submenu name="network">
-              <template slot="title">
-                <Icon type="network"></Icon>
-                网络设置
-              </template>
-              <Menu-item name="network_route">路由</Menu-item>
-              <Menu-item name="network_interface">接口</Menu-item>
-              <Menu-item name="network_traffic">流控</Menu-item>
-              <Menu-item name="network_switch">交换机</Menu-item>
-            </Submenu>
-            <Submenu name="4">
-              <template slot="title">
-                <Icon type="android-apps"></Icon>
-                APP设置
-              </template>
-              <Menu-item name="4-1">选项 1</Menu-item>
-              <Menu-item name="4-2">选项 2</Menu-item>
-            </Submenu>
+            </Menu-group>
           </Menu>
         </i-col>
         <i-col span="21">
@@ -110,7 +116,7 @@
     data () {
       return {
         configName: '',
-        activeName: 'system_tunnel_syslog',
+        activeName: 'wireless_main',
         openName: 'system',
         proList: [
           {
