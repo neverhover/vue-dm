@@ -7,21 +7,28 @@
       <div class="layout-logo"></div>
       <div class="layout-nav">
         <Row>
-          <Col span="12">
-          <Input v-model="configName" placeholder="请输入配置名"  />
+          <Col span="8">
+          <Input v-model="configName" :placeholder="$t('common.configPlaceholder')"/>
+            <!--<span slot="prepend">{{$t('common.configName')}}</span>-->
           </Col>
           <Col span="8" style="padding-left:10px">
-
               <Select v-model="selPro" filterable @on-change="getProTemp">
                 <Option v-for="item in proList" :value="item.value" :key="item">{{ item.label }}</Option>
              </Select>
           </Col>
           <Col span="4" style="padding-left:10px">
             <Button type="primary" :loading="loading" icon="checkmark-round" @click="toApply">
-              <span v-if="!loading">保存</span>
+              <span v-if="!loading">{{$t('common.textSave')}}</span>
               <span v-else>Loading...</span>
             </Button>
           </Col>
+
+          <Col span="4" style="padding-left:10px">
+          <Select v-model="curLang" filterable @on-change="setLanguage">
+            <Option v-for="item in langList" :value="item.value" :key="item">{{ item.label }}</Option>
+          </Select>
+          </Col>
+
         </Row>
 
       </div>
@@ -96,6 +103,8 @@
 
 <script>
   import api from '@/api'
+  import Util from '@/libs/utils'
+
   export default {
     name: 'home',
     data () {
@@ -130,10 +139,29 @@
           }
         ],
         selPro: 'chongqing',
+        langList: [
+          {
+            value: 'zh-CN',
+            label: '简体中文'
+          },
+          {
+            value: 'en-US',
+            label: 'English'
+          },
+          {
+            value: 'zh-TW',
+            label: '繁体中文'
+          }
+        ],
+        curLang: 'zh-CN',
         loading: false
       }
     },
     methods: {
+      setLanguage (e) {
+        console.log(e)
+        Util.setLocalLanguage(e)
+      },
       routeChange (e) {
         this.$router.push({ name: e })
       },
@@ -183,6 +211,7 @@
     },
     created () {
       this.routeChange(this.activeName)
+      this.curLang = Util.getLocalLanguage()
     }
   }
 </script>
@@ -203,7 +232,7 @@
     left: 20px;
   }
   .layout-nav{
-    width: 50%;
+    width: 60%;
     margin: 0 auto;
   }
   .layout-assistant{
