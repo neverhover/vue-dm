@@ -1,5 +1,6 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+// Import base lib
 import Vue from 'vue'
 import iView from 'iview'
 import App from './App'
@@ -14,9 +15,14 @@ import zhLocale from 'iview/src/locale/lang/zh-CN'
 import enLocale from 'iview/src/locale/lang/en-US'
 import Util from './libs/utils'
 
+// Import data template
+import defaultTempl from '@/viewModel'
+
+// Import mockjs
 import * as mock from './mock'
 
 console.log(mock.default.line)
+console.log(defaultTempl.schema)
 
 // Add components
 Vue.use(VueI18n)
@@ -35,11 +41,12 @@ Util.setLocalLanguage('')
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
-var vm = new Vue({
+var vmApp = new Vue({
   el: '#app',
   router,
-  store,
+  store: store,
   template: '<App/>',
   components: { App }
 })
-export default vm
+
+window.vueAPP = vmApp

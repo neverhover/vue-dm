@@ -1,0 +1,301 @@
+{
+  "info": "In ns-AP",
+  "boardname": "NS-301P",
+  "wireless": {
+    "scenario": "ptmp",
+    "countrycode": "US",
+    "bandsteering": {
+      "enabled": false,
+      "mode": "balanced"
+    },
+    "radio": [
+      {
+        "antennacount": 2,
+        "ifname": "wifi0",
+        "ifindex": 0,
+        "enabled": true,
+        "maxssid": 8,
+        "frequence": "2.4G",
+        "ieeemode": "802.11n",
+        "channel": 10,
+        "htmode": "20",
+        "antennagain": 9,
+        "txpower": 20,
+        "board_power": 20,
+        "advance": true,
+        "fragmentation": {
+          "enabled": false,
+          "size": 256
+        },
+        "rts": {
+          "enabled": false,
+          "size": 256
+        },
+        "acktimeout": 100,
+        "atpc": true,
+        "bawinsize": 10,
+        "prohibited": false,
+        "amsdu": true,
+        "wjet": {
+          "enabled": false,
+          "version": "auto"
+        },
+        "dfs": false,
+        "vap": [
+          {
+            "mode": "ap",
+            "wds": false,
+            "index": 0,
+            "ifname": "ath0",
+            "enabled": false,
+            "essid": "Lintest2222222",
+            "hidden": false,
+            "security": {
+              "mode": "open",
+              "wpacomb": "",
+              "encryption": "",
+              "wpaenterprise": {
+                "authentication": {
+                  "servers": [
+                    {
+                      "secret": "",
+                      "port": 1812,
+                      "address": "1.1.1.1"
+                    }
+                  ]
+                },
+                "accounting": {
+                  "servers": [
+                    {
+                      "secret": "",
+                      "port": 1812,
+                      "address": "2.2.2.2"
+                    }
+                  ],
+                  "enabled": true
+                },
+                "das": {
+                  "secret": "",
+                  "enabled": false,
+                  "clientip": "0.0.0.0",
+                  "port": 1812
+                },
+                "eap": {
+                  "method": "",
+                  "identity": "",
+                  "password": ""
+                }
+              },
+              "wpapsk": {
+                "passphrase": ""
+              }
+            }
+          }
+        ]
+      },
+      {
+        "antennacount": 2,
+        "ifname": "wifi3",
+        "ifindex": 1,
+        "enabled": true,
+        "maxssid": 8,
+        "frequence": "5.8G",
+        "ieeemode": "802.11a",
+        "channel": 36,
+        "htmode": "20",
+        "antennagain": 9,
+        "txpower": 17,
+        "board_power": 17,
+        "advance": true,
+        "fragmentation": {
+          "enabled": false,
+          "size": 256
+        },
+        "rts": {
+          "enabled": false,
+          "size": 256
+        },
+        "acktimeout": 100,
+        "atpc": true,
+        "bawinsize": 10,
+        "prohibited": false,
+        "amsdu": true,
+        "wjet": {
+          "enabled": false,
+          "version": "auto"
+        },
+        "dfs": false,
+        "vap": [
+          {
+            "mode": "ap",
+            "wds": false,
+            "index": 1,
+            "ifname": "ath1",
+            "enabled": false,
+            "essid": "Lintest58222222",
+            "hidden": false
+          }
+        ]
+      }
+    ]
+  },
+  "network": {
+    "ethernet": [
+      {
+        "ifname": "eth0",
+        "ifindex": 0,
+        "enable": true,
+        "uplink": true
+      },
+      {
+        "ifname": "eth1",
+        "ifindex": 1,
+        "enable": true,
+        "uplink": false
+      }
+    ],
+    "interface": [
+      {
+        "iftype": "ethernet",
+        "ifname": "eth1",
+        "enabled": true,
+        "phy_index": 0,
+        "vlanid": 0,
+        "ssid_name": "free_ssid",
+        "ssid2vlan": {
+          "enabled": true,
+          "id": 10
+        },
+        "agentargs": {
+          "enabled": false,
+          "iftype": 0,
+          "idletimeout": 3600,
+          "accttimeout": 600,
+          "portal": {
+            "nasaddr": "",
+            "prtipaddr": "",
+            "prturl": ""
+          },
+          "acl": {
+            "free": {
+              "ipa4": [],
+              "host": []
+            },
+            "deny": {
+              "ipa4": [],
+              "host": []
+            }
+          }
+        }
+      },
+      {
+        "iftype": "ethernet",
+        "ifname": "eth1.100",
+        "enabled": true,
+        "phy_index": 1,
+        "vlanid": 100,
+        "ssid_name": "free_ssid",
+        "ssid2vlan": {
+          "enabled": true,
+          "id": 100
+        },
+        "agentargs": {
+          "enabled": true,
+          "iftype": 0,
+          "idletimeout": 3600,
+          "accttimeout": 600,
+          "portal": {
+            "nasaddr": "",
+            "prtipaddr": "",
+            "prturl": ""
+          },
+          "acl": {
+            "free": {
+              "ipa4": [],
+              "host": []
+            },
+            "deny": {
+              "ipa4": [],
+              "host": []
+            }
+          }
+        }
+      }
+    ],
+    "route": [
+      {
+        "enabled": false,
+        "interface": "2",
+        "name": "1",
+        "mtu": "7",
+        "metric": "6",
+        "netmask": "4",
+        "gateway": "0.0.0.0",
+        "dstnet": "3"
+      }
+    ],
+    "trafficcontrol": [
+      {
+        "egress": {
+          "speed": "2"
+        },
+        "enabled": false,
+        "ingress": {
+          "speed": "3"
+        },
+        "interface": "1"
+      }
+    ],
+    "switch": [
+      {
+        "mtu": 2,
+        "mode": "system",
+        "name": "1",
+        "vport": [
+          {
+            "portname": "11",
+            "ssid": "",
+            "radio_index": 0,
+            "is_wifi": false,
+            "vlan_id": "22"
+          },
+          {
+            "portname": "22",
+            "ssid": "",
+            "radio_index": 0,
+            "is_wifi": false,
+            "vlan_id": "33"
+          }
+        ]
+      },
+      {
+        "mtu": 222,
+        "mode": "ovs",
+        "name": "222",
+        "vport": [
+          {
+            "portnumber": 44,
+            "port_type": "default",
+            "vlan_id": "0",
+            "portname": "333",
+            "is_wifi": false,
+            "vlan_type": "trunk"
+          }
+        ]
+      }
+    ]
+  },
+  "system": {
+    "tun_syslog": {
+      "enabled": false,
+      "ipaddr": "127.0.0.1",
+      "port": 514
+    },
+    "sys_syslog": {
+      "enabled": false,
+      "ipaddr": "127.0.0.1",
+      "port": 514,
+      "level": "info"
+    }
+  }
+}

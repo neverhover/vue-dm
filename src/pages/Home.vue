@@ -12,7 +12,7 @@
             <!--<span slot="prepend">{{$t('common.configName')}}</span>-->
           </Col>
           <Col span="8" style="padding-left:10px">
-              <Select v-model="selPro" filterable @on-change="getProTemp">
+              <Select v-model="selPro"  @on-change="getProTemp" :disabled="selProDisable">
                 <Option v-for="item in proList" :value="item.value" :key="item">{{ item.label }}</Option>
              </Select>
           </Col>
@@ -110,6 +110,7 @@
 <script>
   import api from '@/api'
   import Util from '@/libs/utils'
+  // Import Event Bus
 
   export default {
     name: 'home',
@@ -120,31 +121,32 @@
         openName: 'system',
         proList: [
           {
-            value: 'beijing',
-            label: '北京市'
+            value: 'NFT 2ac',
+            label: 'NFT 2ac'
           },
           {
-            value: 'shanghai',
-            label: '上海市'
+            value: 'NFT 3ac',
+            label: 'NFT 3ac'
           },
           {
-            value: 'shenzhen',
-            label: '深圳市'
+            value: 'NSAP A160',
+            label: 'NSAP-A160'
           },
           {
-            value: 'hangzhou',
-            label: '杭州市'
+            value: 'DLB 2-9B',
+            label: 'DLB 2-9B'
           },
           {
-            value: 'nanjing',
-            label: '南京市'
+            value: 'NFT 1N AF',
+            label: 'NFT 1N AF'
           },
           {
-            value: 'chongqing',
-            label: '重庆市'
+            value: 'DLB 2-15',
+            label: 'DLB 2-15'
           }
         ],
-        selPro: 'chongqing',
+        selPro: 'NFT 3ac',
+        selProDisable: false,
         langList: [
           {
             value: 'zh-CN',
@@ -216,8 +218,42 @@
       }
     },
     created () {
+      // 切换到默认页
       this.routeChange(this.activeName)
+      // 设置默认语言
       this.curLang = Util.getLocalLanguage()
+      console.log(this.$route.params.sid)
+      let comThis = this
+      console.log(this)
+      // 如果是编辑模式则向服务端获取数据，并重新初始化界面
+      if (this.$route.params.sid !== undefined) {
+        this.selProDisable = true
+        // 根据id获取其对应的产品名称
+        let param = {
+//        pname: this.$route.params.sid
+        }
+
+        let initPage = async () => {
+          let res = await api.getConfigSetInfo(param, comThis)
+          console.info('**********************')
+          console.info(res)
+          console.info('**********************')
+          // 成功获取用户的配置后，初始化该界面
+          comThis.selPro = res.data.proTemplName
+          comThis.configName = res.data.configName
+          // 根据所选择的产品名，获取该产品的配置模版
+          let proData = await api.getProTempInfo(res)
+          console.warn('vvvvvvvvvvvvvvv')
+          console.log(proData)
+          console.log(res.data)
+          console.warn('vvvvvvvvvvvvvvv')
+          // 通过vuex设置root下的状态数据
+          comThis.$store.dispatch('setProTempl', proData)
+          comThis.$store.dispatch('setUsrData', res.data.usrData)
+        }
+        initPage()
+        // 混合用户配置 和 产品模版
+      }
     }
   }
 </script>
