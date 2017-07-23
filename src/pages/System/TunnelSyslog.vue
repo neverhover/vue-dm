@@ -34,7 +34,7 @@
       return {
         currData: {},
         currTemp: {},
-        vmodel: {}
+        rules: {}
       }
     },
     created () {
@@ -48,10 +48,16 @@
       '$route': 'fetchData'
     },
     methods: {
+      computeRules () {
+        console.log('cc')
+      },
       fetchData () {
         console.log('Do something')
         // Template 合并
         // userData 合并
+        // TODO: 这并不是最好的方法，请参考vuex中关于vm-model说明，应使用mutations来处理
+        this.currTemp = this.$store.state.system.curTemplate.tun_syslog
+        this.currData = this.$store.state.system.data.tun_syslog
       }
     }
   }

@@ -16,13 +16,13 @@ import enLocale from 'iview/src/locale/lang/en-US'
 import Util from './libs/utils'
 
 // Import data template
-import defaultTempl from '@/viewModel'
+// import defaultTempl from '@/viewModel'
 
 // Import mockjs
 import * as mock from './mock'
 
 console.log(mock.default.line)
-console.log(defaultTempl.schema)
+// console.log(defaultTempl.schema)
 
 // Add components
 Vue.use(VueI18n)

@@ -27,7 +27,7 @@ const actions = {
       payload: payload,
       template: rootGetters.getProTemplate
     })
-    console.log('zzzzzzzzzzzzzzzzzzzzzz')
+    // console.log('zzzzzzzzzzzzzzzzzzzzzz')
   },
   setUsrData ({ dispatch, commit, getters, rootGetters }, payload) {
     // commit(types.SET_USR_CONFIG, payload)
@@ -35,7 +35,8 @@ const actions = {
       payload: payload,
       uconfig: rootGetters.getUserConfig
     })
-    console.log('zzzzzzzzzzzzzzzzzzzzzzXXXXXXXXXX')
+    // 所有的mutations完成之后才会调用后续内容
+    // console.log('zzzzzzzzzzzzzzzzzzzzzzXXXXXXXXXX')
   },
   setCurUserConfig ({ dispatch, commit, getters, rootGetters, state, rootState }, payload) {
     commit(types.SET_CUR_USR_CONFIG, {
@@ -59,10 +60,9 @@ export default {
       let pt = {}
       if (payload.template.templ) {
         pt = Util.myclone(payload.template.templ.system)
-        Util.mix_object(dt, pt, {})
+        Util.mix_object(dt, pt, null)
       }
       state.curTemplate = pt
-      // console.log(state.schema)
       console.log('in module system set pro template --- end')
     },
     SYSTEM_SET_SCHEMA (state, payload) {
@@ -70,18 +70,21 @@ export default {
       // 该临时的schema与模块的schema混合获得当前的schema
       // 根据root下的data与curSchema获得当前数据，类似与数据库升级后，旧数据与新数据混合到一行记录中。
       console.log('in module system set user config --- start')
+      // 开始设置当前Schema
       let ct = Util.myclone(state.curTemplate)
+      let ss = Util.myclone(state.schema)
       let tmpSchema = Util.clone_cfg(ct, {})
-      // Util.mix_object(state.schema, tmpSchema, {})
-      console.warn(tmpSchema)
-      // state.curSchema = tmpSchema
-      // console.log(payload.uconfig)
-      // console.info(state.curSchema)
-      // let tmpData = {}
-      // if (payload.uconfig.system) {
-      //   tmpData = Util.myclone(payload.uconfig.system)
-      // }
-      // state.data = Util.mix_object(tmpSchema, tmpData, {})
+      Util.mix_object(ss, tmpSchema, null)
+      state.curSchema = tmpSchema
+      // 开始设置当前数据
+      let tmpData = {}
+      if (payload.uconfig.system) {
+        tmpData = Util.myclone(payload.uconfig.system)
+        Util.mix_object(tmpSchema, tmpData, null)
+      } else {
+        tmpData = Util.mix_object(tmpSchema, tmpData, {})
+      }
+      state.data = tmpData
       console.log('in module system set user config --- end')
     }
   }

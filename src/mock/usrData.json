@@ -288,7 +288,7 @@
   "system": {
     "tun_syslog": {
       "enabled": false,
-      "ipaddr": "127.0.0.1",
+      "ipaddr": "1.1.1.1",
       "port": 514
     },
     "sys_syslog": {

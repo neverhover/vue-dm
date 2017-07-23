@@ -226,10 +226,23 @@ util.in_array = (needle, haystack) => {
  * mix_object(cur_pro, cur_cfg, {}) 编辑配置
  */
 util.mix_object = (baseObj, newObj, parentObj) => {
+  if (parentObj === null) {
+    // 当新对象为空时，将baseObj直接copy过来
+    // 该情况用于页面中的内容版本高，而产品的配置模版版本低，即属性少
+    for (let index in baseObj) {
+      if (!baseObj.hasOwnProperty(index)) {
+        continue
+      }
+      if (!newObj.hasOwnProperty(index)) {
+        newObj[index] = util.myclone(baseObj[index])
+      }
+    }
+  }
+  // 递归处理属性
   for (let i in baseObj) {
-    // if (!baseObj.hasOwnProperty(i)) {
-    //   continue
-    // }
+    if (!baseObj.hasOwnProperty(i)) {
+      continue
+    }
     // 找到新对象中对应属性的值
     if (baseObj[i].$template === true) {
       // 是个table，那么跳过此template的赋值，并将new_obj对象混入到base_obj中来
@@ -240,22 +253,19 @@ util.mix_object = (baseObj, newObj, parentObj) => {
       }
       break
     }
-    // console.log( '键:'+ i + ' ')
+    // console.warn('键:' + i + ' >')
+    // console.warn(parentObj)
     let valObj = {}
-    if (newObj !== null) {
+    if (newObj !== null && typeof (newObj) !== 'undefined') {
       valObj = newObj[i]
     }
-
     // if(valObj != null && typeof(valObj) != 'object'){
     //    //如果该值不为空且也不是对象，说明是真正的值。
     //    //则需要覆盖到对应base对象的值
     //    console.log('i='+i+' typeof:'+ typeof(valObj)+ '\n'
     //    + 'cur base is:'+ baseObj[i].key)
     // }
-    // console.log('xxxxxxxxxxxxxxxxxxxxxx1')
-    // console.log(baseObj[i])
-    // console.log('xxxxxxxxxxxxxxxxxxxxxx2')
-    if (typeof (baseObj[i]) === 'object' && baseObj[i].key !== null) {
+    if (typeof (baseObj[i]) === 'object' && baseObj[i].key) {
       // 表示该对象是我们想找的对象，那么赋值给它
       let wantKey = baseObj[i].key
       if (typeof (newObj) !== 'undefined' &&
@@ -283,8 +293,9 @@ util.mix_object = (baseObj, newObj, parentObj) => {
         if (baseObj[i].default !== undefined) {
           baseObj[i].value = baseObj[i].default !== null ? baseObj[i].default : 'error! please check your base object'
         }
+        // console.log(baseObj[i].value)
         if (typeof (baseObj[i].value) === 'object' && baseObj[i].type === 'object') {
-          this.mix_object(baseObj[i], valObj, baseObj)
+          util.mix_object(baseObj[i], valObj, baseObj)
         }
       }
       //  console.log('changing key:'+ wantKey+'\n'+
@@ -297,7 +308,7 @@ util.mix_object = (baseObj, newObj, parentObj) => {
       //  console.log(baseObj[i])
     } else {
       //  console.log(i + '----------')
-      this.mix_object(baseObj[i], valObj, baseObj)
+      util.mix_object(baseObj[i], valObj, baseObj)
     }
   }
   return baseObj
@@ -311,20 +322,20 @@ util.mix_object = (baseObj, newObj, parentObj) => {
  */
 util.clone_cfg = (baseObj, newObj) => {
   for (let i in baseObj) {
-    // if (!baseObj.hasOwnProperty(i)) {
-    //   continue
-    // }
+    if (!baseObj.hasOwnProperty(i)) {
+      continue
+    }
     // console.log(baseObj[i])
-    if (typeof (baseObj[i]) === 'object' &&
-      typeof (baseObj[i].key) !== 'undefined' &&
-      baseObj[i].key !== null &&
-      typeof (baseObj[i].type) !== 'undefined' &&
-      baseObj[i].type !== 'object') {
+    if (typeof (baseObj[i]) === 'object' && baseObj[i].key && baseObj[i].type && baseObj[i].type !== 'object') {
+      // if (typeof (baseObj[i]) === 'object' &&
+      // typeof (baseObj[i].key) !== 'undefined' &&
+      // baseObj[i].key !== null &&
+      // typeof (baseObj[i].type) !== 'undefined' &&
+      // baseObj[i].type !== 'object') {
       // 表示该对象是我们想找的对象，那么赋值给它
       let wantKey = baseObj[i].key
-      console.log(baseObj[i])
-      console.log('开始加入键:' + wantKey + ' 值:' + baseObj[i].value)
-      newObj[wantKey] = baseObj[i].value
+      // console.log('开始加入键:' + wantKey + ' 值:' + (baseObj[i].value ? baseObj[i].value : baseObj[i].default))
+      newObj[wantKey] = baseObj[i].value ? baseObj[i].value : baseObj[i].default
     } else if (typeof (baseObj[i]) === 'object' &&
       typeof (baseObj[i].key) !== 'undefined' &&
       baseObj[i].key !== null &&

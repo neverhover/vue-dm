@@ -47,12 +47,12 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   iView.LoadingBar.start()
-  console.log(to)
-  console.log(from)
+  // console.log(to)
+  // console.log(from)
   // console.log(Home.methods.getActiveName())
   if (to.matched.some(record => record.meta.requiredAuth)) {
     // 请参考vue-router中关于路由元信息的使用方法
-    console.log('need auth')
+    // console.log('need auth')
     next()
   } else {
     next()

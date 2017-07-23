@@ -64,9 +64,9 @@ export let getProTempInfo = (res) => {
     }
     getProTemp(templParam).then((pro) => {
       // 获得产品模版成功，变更select
-      console.info('----------------')
-      console.info(pro)
-      console.info('----------------')
+      // console.info('----------------')
+      // console.info(pro)
+      // console.info('----------------')
       resolve(pro.data)
     }).catch((err) => {
       console.warn(err)

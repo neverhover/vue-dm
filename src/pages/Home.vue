@@ -226,7 +226,6 @@
       this.curLang = Util.getLocalLanguage()
       console.log(this.$route.params.sid)
       let comThis = this
-      console.log(this)
       // 如果是编辑模式则向服务端获取数据，并重新初始化界面
       if (this.$route.params.sid !== undefined) {
         this.selProDisable = true
