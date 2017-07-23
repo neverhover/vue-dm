@@ -57,10 +57,14 @@ export default {
       // console.log(payload.template.templ)
       console.log('in module system set pro template --- start')
       let dt = Util.myclone(state.template)
-      let pt = {}
+      let pt = null
       if (payload.template.templ) {
         pt = Util.myclone(payload.template.templ.system)
+        if (pt === null || typeof (pt) === 'undefined') {
+          pt = {}
+        }
         Util.mix_object(dt, pt, null)
+        console.log(pt)
       }
       state.curTemplate = pt
       console.log('in module system set pro template --- end')
@@ -77,7 +81,7 @@ export default {
       Util.mix_object(ss, tmpSchema, null)
       state.curSchema = tmpSchema
       // 开始设置当前数据
-      let tmpData = {}
+      let tmpData = null
       if (payload.uconfig.system) {
         tmpData = Util.myclone(payload.uconfig.system)
         Util.mix_object(tmpSchema, tmpData, null)

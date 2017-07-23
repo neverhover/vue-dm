@@ -229,6 +229,9 @@ util.mix_object = (baseObj, newObj, parentObj) => {
   if (parentObj === null) {
     // 当新对象为空时，将baseObj直接copy过来
     // 该情况用于页面中的内容版本高，而产品的配置模版版本低，即属性少
+    if (newObj === null || typeof (newObj) === 'undefined') {
+      newObj = {}
+    }
     for (let index in baseObj) {
       if (!baseObj.hasOwnProperty(index)) {
         continue
