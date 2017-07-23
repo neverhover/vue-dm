@@ -9,5 +9,8 @@ export default {
   },
   setUsrData ({commit}, payload) {
     commit(types.SET_USR_CONFIG, payload)
+  },
+  setCurUserConfig ({commit}, payload) {
+    // commit(types.SET_CUR_USR_CONFIG, payload)
   }
 }

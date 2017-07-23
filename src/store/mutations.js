@@ -9,5 +9,12 @@ export default {
   },
   [types.SET_USR_CONFIG] (state, paylaod) {
     state.userConfig = paylaod
+  },
+  [types.SET_CUR_USR_CONFIG] (state, paylaod) {
+    if (paylaod.name) {
+      state.curUserConfig[paylaod.name] = paylaod.data
+    } else {
+      state.curUserConfig = paylaod
+    }
   }
 }

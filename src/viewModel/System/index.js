@@ -5,6 +5,7 @@
 const template = {
   'tun_syslog': {
     'enabled': {
+      'type': 'boolean',
       'key': 'enabled',
       'default': false,
       'spec': {
@@ -36,6 +37,7 @@ const template = {
   },
   'sys_syslog': {
     'enabled': {
+      'type': 'boolean',
       'key': 'enabled',
       'default': false,
       'spec': {
@@ -67,6 +69,7 @@ const template = {
     'level': {
       'key': 'level',
       'default': 'info',
+      'type': 'string',
       'list': [
         'debug',
         'info',

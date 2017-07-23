@@ -200,7 +200,9 @@
       toApply () {
         this.loading = true
         // TODO: ajax保存配置
-
+        this.$store.dispatch('setCurUserConfig', {})
+        console.log('Commit user config')
+        console.log(this.$store.getters.getCurUserConfig)
         let param = {
           selPro: this.selPro
         }
@@ -233,7 +235,7 @@
 //        pname: this.$route.params.sid
         }
 
-        let initPage = async () => {
+        let editPage = async () => {
           let res = await api.getConfigSetInfo(param, comThis)
           console.info('**********************')
           console.info(res)
@@ -251,8 +253,22 @@
           comThis.$store.dispatch('setProTempl', proData)
           comThis.$store.dispatch('setUsrData', res.data.usrData)
         }
-        initPage()
+        editPage()
         // 混合用户配置 和 产品模版
+      } else {
+        let newPage = async () => {
+          // 通过vuex设置root下的状态数据
+          let res = {
+            data: {
+              proTemplName: ''
+            }
+          }
+          res.data.proTemplName = comThis.selPro
+          let proData = await api.getProTempInfo(res)
+          comThis.$store.dispatch('setProTempl', proData)
+          comThis.$store.dispatch('setUsrData', {})
+        }
+        newPage()
       }
     }
   }

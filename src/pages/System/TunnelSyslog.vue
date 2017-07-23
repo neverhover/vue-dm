@@ -9,7 +9,7 @@
         <Form :model="currData" label-position="right" :label-width="200">
           <Form-item label="启用隧道日志">
             <i-switch size="large" v-model="currData.enabled">
-              <span slot="open">启用</span>                       
+              <span slot="open">启用</span>
               <span slot="close">禁用</span>
             </i-switch>
           </Form-item>

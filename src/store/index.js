@@ -15,15 +15,19 @@ Vue.use(Vuex)
 // 用户状态数据全局
 let state = {
   userConfig: {},
-  proTemplate: {}
+  proTemplate: {},
+  curUserConfig: {}
 }
 
 let getters = {
-  dataSystem: (state, getters) => {
-    return state.userConfig.system ? state.userConfig.system : null
+  getUserConfig: (state, getters) => {
+    return state.userConfig
   },
-  templSystem: (state, getters) => {
-    return state.proTemplate.system ? state.proTemplate.system : null
+  getProTemplate: (state, getters) => {
+    return state.proTemplate
+  },
+  getCurUserConfig: (state, getters) => {
+    return state.curUserConfig
   }
 }
 
