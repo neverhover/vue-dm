@@ -12,8 +12,8 @@
             <!--<span slot="prepend">{{$t('common.configName')}}</span>-->
           </Col>
           <Col span="8" style="padding-left:10px">
-              <Select v-model="selPro"  @on-change="getProTemp" :disabled="selProDisable">
-                <Option v-for="item in proList" :value="item.value" :key="item">{{ item.label }}</Option>
+            <Select v-model="selPro"  @on-change="getProTemp" :disabled="selProDisable">
+              <Option v-for="item in proList" :value="item.value" :key="item">{{ item.label }}</Option>
              </Select>
           </Col>
           <Col span="4" style="padding-left:10px">
@@ -281,7 +281,8 @@
   .layout-logo{
     width: 100px;
     height: 30px;
-    background: #5b6270;
+    /*background: #5b6270;*/
+    background-image: url('/static/static/img/favicons/favicon.ico');
     border-radius: 3px;
     float: left;
     position: relative;
@@ -301,7 +302,7 @@
     padding: 10px 15px 0;
   }
   .layout-content{
-    min-height: 200px;
+    min-height: 300px;
     margin: 15px;
     overflow: hidden;
     background: #fff;

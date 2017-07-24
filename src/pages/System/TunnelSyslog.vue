@@ -13,10 +13,10 @@
               <span slot="close">禁用</span>
             </i-switch>
           </Form-item>
-          <Form-item label="监听地址" prop="user">
+          <Form-item label="监听地址" prop="ipaddr">
             <Input v-model="currData.ipaddr"></Input>
           </Form-item>
-          <Form-item label="端口号" prop="password">
+          <Form-item label="端口号" prop="port">
             <Input :max="65535" :min="1" v-model="currData.port"></Input>
           </Form-item>
         </Form>
@@ -35,11 +35,11 @@
         currData: {},
         currTemp: {},
         rules: {
-          user: [
-            { required: true, message: '请填写用户名', trigger: 'blur' }
+          ipaddr: [
+            { required: true, message: '请填写用户名', trigger: 'change' }
           ],
-          password: [
-            { required: true, message: '请填写密码', trigger: 'blur' },
+          port: [
+            { required: true, message: '请填写密码', trigger: 'change' },
             { type: 'string', min: 6, message: '密码长度不能小于6位', trigger: 'blur' }
           ]
         }
