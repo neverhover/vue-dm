@@ -220,8 +220,6 @@
       }
     },
     created () {
-      // 切换到默认页
-      this.routeChange(this.activeName)
       // 设置默认语言
       this.curLang = Util.getLocalLanguage()
       console.log(this.$route.params.sid)
@@ -251,6 +249,9 @@
           // 通过vuex设置root下的状态数据
           comThis.$store.dispatch('setProTempl', proData)
           comThis.$store.dispatch('setUsrData', res.data.usrData)
+          // 数据初始化完成后切换到默认页
+          // TODO:该部分还需要优化调整，存在重复。#1 在数据异步获取完成后初始化组件
+          this.routeChange(this.activeName)
         }
         editPage()
         // 混合用户配置 和 产品模版
@@ -266,6 +267,9 @@
           let proData = await api.getProTempInfo(res)
           comThis.$store.dispatch('setProTempl', proData)
           comThis.$store.dispatch('setUsrData', {})
+          // 数据初始化完成后切换到默认页
+          // TODO:该部分还需要优化调整，存在重复。#1 在数据异步获取完成后初始化组件
+          this.routeChange(this.activeName)
         }
         newPage()
       }

@@ -7,6 +7,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 import 'iview/dist/styles/iview.css'
+import '../my-theme/dist/iview.css'
 
 // Import i18n
 import VueI18n from 'vue-i18n'

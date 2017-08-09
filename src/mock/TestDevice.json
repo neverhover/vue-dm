@@ -6,7 +6,7 @@
     "country": {
       "type": "string",
       "key": "countrycode",
-      "default": "US"
+      "default": "CN"
     },
     "bandsteering": {
       "key": "bandsteering",

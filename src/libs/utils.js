@@ -279,12 +279,24 @@ util.mix_object = (baseObj, newObj, parentObj) => {
         baseObj[i].type !== 'object') {
         // console.log(i + ' 普通赋值  ' + wantKey)
         // console.log(newObj[wantKey])
+        let curBaseObj = baseObj[i]
+        let curNewObj = newObj[i]
+        if (curNewObj !== undefined && curBaseObj !== undefined) {
+          for (let ii in curBaseObj) {
+            if (!curBaseObj.hasOwnProperty(ii)) {
+              continue
+            }
+            if (!curNewObj.hasOwnProperty(ii)) {
+              curNewObj[ii] = util.myclone(curBaseObj[ii])
+            }
+          }
+        }
         if (newObj[wantKey] !== undefined) {
           baseObj[i].value = newObj[wantKey]
         }
         // console.log(baseObj[i].value)
       } else if (typeof (newObj) !== 'undefined' && newObj !== null && newObj !== {} && newObj[wantKey] !== null && baseObj[i].$template !== true && baseObj[i].type === 'object') {
-        // console.log(i + ' 嵌套子对象  ' + wantKey)
+        console.log(i + ' 嵌套子对象  ' + wantKey)
         if (baseObj[i].default !== undefined) {
           baseObj[i].value = this.myclone(baseObj[i].default)
           this.mix_object(baseObj[i].value, valObj, baseObj)
@@ -310,7 +322,7 @@ util.mix_object = (baseObj, newObj, parentObj) => {
       //  console.log('我们找到了,不理他')
       //  console.log(baseObj[i])
     } else {
-      //  console.log(i + '----------')
+      // console.log(i + '----------')
       util.mix_object(baseObj[i], valObj, baseObj)
     }
   }
@@ -352,7 +364,7 @@ util.clone_cfg = (baseObj, newObj) => {
         newObj[i] = {}
       }
       valObj = newObj[i]
-      util.clone_cfg(baseObj[i].value, valObj)
+      util.clone_cfg(baseObj[i].value ? baseObj[i].value : baseObj[i].default, valObj)
     } else if ((typeof (baseObj[i]) !== 'object') && (typeof (baseObj[i]) !== 'function') && (baseObj[i] !== null)) {
       // console.log('开始加入非对象 键:' + i + ' 值:' + baseObj[i])
       newObj[i] = baseObj[i]

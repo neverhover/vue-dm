@@ -8,7 +8,9 @@ import Vuex from 'vuex'
 import actions from './actions'
 import mutations from './mutations'
 
+// Import modules
 import System from './modules/system'
+import Wireless from './modules/wireless'
 
 Vue.use(Vuex)
 
@@ -37,6 +39,7 @@ export default new Vuex.Store({
   mutations,
   getters,
   modules: {
-    system: System
+    system: System,
+    wireless: Wireless
   }
 })

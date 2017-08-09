@@ -4,9 +4,9 @@
 <template>
   <div>
     <Row>
-      <Col :xs="2" :sm="4" :md="4" :lg="8"></Col>
-      <Col :xs="20" :sm="16" :md="16" :lg="8">
-        <Form :model="currData" label-position="right" :label-width="200" :rules="rules">
+      <Col :xs="2" :sm="4" :md="4" :lg="4">&nbsp;</Col>
+      <Col :xs="20" :sm="16" :md="16" :lg="16">
+        <Form :model="currData" label-position="right" :label-width="100" :rules="rules">
           <Form-item label="启用隧道日志">
             <i-switch size="large" v-model="currData.enabled">
               <span slot="open">启用</span>
@@ -21,7 +21,7 @@
           </Form-item>
         </Form>
       </Col>
-      <Col :xs="2" :sm="4" :md="4" :lg="8"></Col>
+      <Col :xs="2" :sm="4" :md="4" :lg="4">&nbsp;</Col>
     </Row>
 
   </div>
